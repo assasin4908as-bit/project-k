@@ -17,13 +17,12 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #020006;
+    background: #010005;
     font-family: Georgia, "Times New Roman", serif;
 }
 
 body {
     position: relative;
-    cursor: default;
 }
 
 canvas {
@@ -35,17 +34,22 @@ canvas {
 #intro {
     position: fixed;
     inset: 0;
-    z-index: 10;
+    z-index: 100;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+
     background:
-        radial-gradient(circle at center, rgba(80, 0, 55, 0.18), transparent 35%),
-        #020006;
+        radial-gradient(
+            circle at center,
+            rgba(75, 0, 45, 0.22),
+            rgba(2, 0, 6, 0.98) 58%
+        );
+
     transition:
-        opacity 2s ease,
-        visibility 2s ease;
+        opacity 2.2s ease,
+        visibility 2.2s ease;
 }
 
 #intro.hidden {
@@ -55,106 +59,154 @@ canvas {
 }
 
 .intro-dot {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+
     background: #ff315f;
+
     box-shadow:
-        0 0 10px #ff315f,
-        0 0 35px rgba(255, 49, 95, 0.8),
-        0 0 80px rgba(255, 0, 100, 0.35);
-    animation: introPulse 2s infinite ease-in-out;
+        0 0 12px #ff315f,
+        0 0 40px rgba(255, 40, 100, 0.8),
+        0 0 100px rgba(255, 0, 80, 0.35);
+
+    animation:
+        introPulse 2s ease-in-out infinite;
 }
 
 #introText {
-    margin-top: 35px;
-    color: rgba(255,255,255,0.78);
+    margin-top: 34px;
+
+    color: rgba(255,255,255,0.8);
+
     font-size: 17px;
-    letter-spacing: 2px;
+    line-height: 1.7;
+
+    letter-spacing: 1.5px;
+
     text-align: center;
+
     opacity: 0;
-    animation: textAppear 3s 1s forwards;
+
+    animation:
+        introTextAppear 2.5s 0.8s forwards;
 }
 
 #enterButton {
     margin-top: 28px;
-    padding: 13px 28px;
-    border: 1px solid rgba(255, 80, 120, 0.35);
-    border-radius: 30px;
-    background: rgba(30, 0, 15, 0.35);
-    color: rgba(255,255,255,0.85);
-    font-family: inherit;
+
+    padding: 13px 30px;
+
+    border:
+        1px solid
+        rgba(255, 80, 120, 0.45);
+
+    border-radius: 40px;
+
+    background:
+        rgba(20, 0, 10, 0.4);
+
+    color:
+        rgba(255,255,255,0.88);
+
+    font-family: Georgia, serif;
+
     font-size: 15px;
-    letter-spacing: 1px;
+
+    letter-spacing: 1.5px;
+
     cursor: pointer;
+
     opacity: 0;
-    animation: textAppear 2s 2.3s forwards;
-    transition: 0.3s;
+
+    animation:
+        introTextAppear 2s 2s forwards;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
 #enterButton:hover {
-    background: rgba(255, 30, 80, 0.12);
-    border-color: rgba(255, 80, 120, 0.75);
-    box-shadow: 0 0 30px rgba(255, 30, 90, 0.2);
-    transform: scale(1.04);
+    transform: scale(1.06);
+
+    border-color:
+        rgba(255, 100, 140, 0.9);
+
+    box-shadow:
+        0 0 30px
+        rgba(255, 30, 90, 0.28);
+}
+
+#hint,
+#maskHint {
+    position: fixed;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 20;
+
+    pointer-events: none;
+
+    text-align: center;
+
+    opacity: 0;
+
+    transition:
+        opacity 1.5s ease;
 }
 
 #hint {
-    position: fixed;
-    left: 50%;
-    bottom: 34px;
-    transform: translateX(-50%);
-    z-index: 5;
+    bottom: 28px;
 
-    color: rgba(255,255,255,0.55);
+    color:
+        rgba(255,255,255,0.5);
+
     font-size: 14px;
-    letter-spacing: 1px;
-    pointer-events: none;
 
-    opacity: 0;
-    transition: opacity 1.5s ease;
-}
-
-#hint.show {
-    opacity: 1;
+    letter-spacing: 1.2px;
 }
 
 #maskHint {
-    position: fixed;
-    left: 50%;
-    bottom: 65px;
-    transform: translateX(-50%);
-    z-index: 5;
+    bottom: 58px;
 
-    color: rgba(255, 210, 220, 0.7);
+    color:
+        rgba(255,210,220,0.72);
+
     font-size: 13px;
-    letter-spacing: 1px;
-    pointer-events: none;
 
-    opacity: 0;
-    transition: opacity 1s ease;
+    letter-spacing: 1px;
 }
 
+#hint.show,
 #maskHint.show {
     opacity: 1;
 }
 
 @keyframes introPulse {
-    0%,100% {
+
+    0%, 100% {
         transform: scale(0.7);
         opacity: 0.5;
     }
+
     50% {
-        transform: scale(1.6);
+        transform: scale(1.8);
         opacity: 1;
     }
 }
 
-@keyframes textAppear {
+@keyframes introTextAppear {
+
     from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -164,6 +216,10 @@ canvas {
 </head>
 
 <body>
+
+<!-- =====================================================
+     ВХОД
+===================================================== -->
 
 <div id="intro">
 
@@ -188,36 +244,51 @@ canvas {
     Нажмите на маску
 </div>
 
+
 <script type="module">
 
 import * as THREE from
 "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
 
-/* =========================================================
+/* =====================================================
    ОСНОВА
-========================================================= */
+===================================================== */
 
-const scene = new THREE.Scene();
+const scene =
+    new THREE.Scene();
 
-scene.background = new THREE.Color(0x020006);
+scene.background =
+    new THREE.Color(0x010005);
 
-const camera = new THREE.PerspectiveCamera(
-    55,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    2000
+
+const camera =
+    new THREE.PerspectiveCamera(
+        55,
+        window.innerWidth /
+        window.innerHeight,
+        0.1,
+        1000
+    );
+
+camera.position.set(
+    0,
+    0,
+    34
 );
 
-camera.position.set(0, 0, 30);
 
-const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true
-});
+const renderer =
+    new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+    });
 
 renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio, 2)
+    Math.min(
+        window.devicePixelRatio,
+        2
+    )
 );
 
 renderer.setSize(
@@ -225,231 +296,351 @@ renderer.setSize(
     window.innerHeight
 );
 
-renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.outputColorSpace =
+    THREE.SRGBColorSpace;
 
-document.body.appendChild(renderer.domElement);
+document.body.appendChild(
+    renderer.domElement
+);
 
 
-/* =========================================================
-   СВЕЧЕНИЕ ЧАСТИЦ
-========================================================= */
+/* =====================================================
+   PARTICLE TEXTURE
+===================================================== */
 
 function createParticleTexture() {
 
-    const canvas = document.createElement("canvas");
+    const canvas =
+        document.createElement("canvas");
 
     canvas.width = 128;
     canvas.height = 128;
 
-    const ctx = canvas.getContext("2d");
+    const ctx =
+        canvas.getContext("2d");
 
-    const gradient = ctx.createRadialGradient(
-        64,
-        64,
+    const gradient =
+        ctx.createRadialGradient(
+            64,
+            64,
+            0,
+            64,
+            64,
+            64
+        );
+
+    gradient.addColorStop(
         0,
-        64,
-        64,
-        64
+        "rgba(255,255,255,1)"
     );
 
-    gradient.addColorStop(0, "rgba(255,255,255,1)");
-    gradient.addColorStop(0.15, "rgba(255,100,150,0.95)");
-    gradient.addColorStop(0.4, "rgba(255,30,100,0.55)");
-    gradient.addColorStop(1, "rgba(255,0,80,0)");
+    gradient.addColorStop(
+        0.12,
+        "rgba(255,255,255,0.98)"
+    );
 
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 128, 128);
+    gradient.addColorStop(
+        0.3,
+        "rgba(255,100,150,0.8)"
+    );
 
-    const texture = new THREE.CanvasTexture(canvas);
+    gradient.addColorStop(
+        0.6,
+        "rgba(255,20,90,0.3)"
+    );
 
-    texture.needsUpdate = true;
+    gradient.addColorStop(
+        1,
+        "rgba(255,0,80,0)"
+    );
 
-    return texture;
+    ctx.fillStyle =
+        gradient;
+
+    ctx.fillRect(
+        0,
+        0,
+        128,
+        128
+    );
+
+    return new THREE.CanvasTexture(
+        canvas
+    );
 }
 
-const particleTexture = createParticleTexture();
+
+const particleTexture =
+    createParticleTexture();
 
 
-/* =========================================================
-   ФОН — ДАЛЬНИЕ ЧАСТИЦЫ
-========================================================= */
+/* =====================================================
+   ФОН
+===================================================== */
 
-const starCount = 9000;
+const backgroundCount =
+    10000;
 
-const starPositions = new Float32Array(
-    starCount * 3
-);
+const backgroundPositions =
+    new Float32Array(
+        backgroundCount * 3
+    );
 
-const starSizes = new Float32Array(
-    starCount
-);
 
-for (let i = 0; i < starCount; i++) {
+for (
+    let i = 0;
+    i < backgroundCount;
+    i++
+) {
 
-    const i3 = i * 3;
+    const i3 =
+        i * 3;
 
-    const radius = 90 + Math.random() * 180;
+    const radius =
+        70 +
+        Math.random() * 170;
 
     const theta =
-        Math.random() * Math.PI * 2;
+        Math.random() *
+        Math.PI * 2;
 
     const phi =
         Math.acos(
-            2 * Math.random() - 1
+            2 *
+            Math.random() -
+            1
         );
 
-    starPositions[i3] =
+    backgroundPositions[i3] =
         radius *
         Math.sin(phi) *
         Math.cos(theta);
 
-    starPositions[i3 + 1] =
+    backgroundPositions[i3 + 1] =
         radius *
         Math.sin(phi) *
         Math.sin(theta);
 
-    starPositions[i3 + 2] =
+    backgroundPositions[i3 + 2] =
         radius *
         Math.cos(phi);
-
-    starSizes[i] =
-        0.3 + Math.random() * 1.3;
 }
 
-const starGeometry =
+
+const backgroundGeometry =
     new THREE.BufferGeometry();
 
-starGeometry.setAttribute(
+backgroundGeometry.setAttribute(
     "position",
     new THREE.BufferAttribute(
-        starPositions,
+        backgroundPositions,
         3
     )
 );
 
-starGeometry.setAttribute(
-    "size",
-    new THREE.BufferAttribute(
-        starSizes,
-        1
-    )
-);
 
-const starMaterial =
+const backgroundMaterial =
     new THREE.PointsMaterial({
 
-        map: particleTexture,
+        map:
+            particleTexture,
 
-        color: 0x8e1645,
+        color:
+            0x7b1745,
 
-        size: 0.45,
+        size:
+            0.32,
 
-        transparent: true,
+        transparent:
+            true,
 
-        opacity: 0.42,
+        opacity:
+            0.42,
 
-        depthWrite: false,
+        depthWrite:
+            false,
 
         blending:
             THREE.AdditiveBlending,
 
-        sizeAttenuation: true
-
+        sizeAttenuation:
+            true
     });
 
-const stars =
+
+const backgroundParticles =
     new THREE.Points(
-        starGeometry,
-        starMaterial
+        backgroundGeometry,
+        backgroundMaterial
     );
 
-scene.add(stars);
+scene.add(
+    backgroundParticles
+);
 
 
-/* =========================================================
-   HEART
-========================================================= */
+/* =====================================================
+   ❤️ HEART
+===================================================== */
 
 const heartGroup =
     new THREE.Group();
 
-scene.add(heartGroup);
+scene.add(
+    heartGroup
+);
 
-const heartCount = 24000;
+
+const heartCount =
+    34000;
 
 const heartPositions =
     new Float32Array(
         heartCount * 3
     );
 
-const heartBase =
+const heartOriginal =
     [];
 
-for (let i = 0; i < heartCount; i++) {
 
-    const t =
+/*
+   Более широкое,
+   круглое и объёмное сердце.
+*/
+
+for (
+    let i = 0;
+    i < heartCount;
+    i++
+) {
+
+    const i3 =
+        i * 3;
+
+
+    const angle =
         Math.random() *
         Math.PI * 2;
 
+
     /*
-       Формула сердца.
+       Плотное заполнение.
     */
+
+    const fill =
+        Math.pow(
+            Math.random(),
+            0.42
+        );
+
 
     let x =
         16 *
         Math.pow(
-            Math.sin(t),
+            Math.sin(angle),
             3
         );
 
+
     let y =
-        13 * Math.cos(t)
-        - 5 * Math.cos(2 * t)
-        - 2 * Math.cos(3 * t)
-        - Math.cos(4 * t);
+        13 *
+        Math.cos(angle)
+        -
+        5 *
+        Math.cos(
+            angle * 2
+        )
+        -
+        2 *
+        Math.cos(
+            angle * 3
+        )
+        -
+        Math.cos(
+            angle * 4
+        );
+
 
     /*
-       Заполняем объём.
+       Заполнение.
+    */
+
+    x *= fill;
+    y *= fill;
+
+
+    /*
+       Делаем сердце
+       шире и округлее.
+    */
+
+    x *= 0.70;
+    y *= 0.67;
+
+
+    /*
+       Большой объём по Z.
     */
 
     const depth =
-        Math.pow(
-            Math.random(),
-            0.55
+        Math.sqrt(
+            Math.max(
+                0,
+                1 -
+                fill *
+                fill
+            )
         );
 
-    const thickness =
-        0.12 +
-        depth * 0.88;
 
-    x *= thickness;
-    y *= thickness;
+    let z =
+        (
+            Math.random() -
+            0.5
+        ) *
+        8 *
+        depth;
 
-    const z =
-        (Math.random() - 0.5) *
-        (3.2 * thickness);
 
-    const scale = 0.48;
+    /*
+       Передняя часть
+       слегка выпуклая.
+    */
 
-    const px = x * scale;
-    const py = y * scale;
-    const pz = z * scale;
+    z +=
+        Math.sin(
+            fill *
+            Math.PI
+        ) *
+        1.15;
 
-    heartPositions[i * 3] =
-        px;
 
-    heartPositions[i * 3 + 1] =
-        py;
+    /*
+       Общий масштаб.
+    */
 
-    heartPositions[i * 3 + 2] =
-        pz;
+    x *= 0.68;
+    y *= 0.68;
+    z *= 0.68;
 
-    heartBase.push({
-        x: px,
-        y: py,
-        z: pz
+
+    heartPositions[i3] =
+        x;
+
+    heartPositions[i3 + 1] =
+        y;
+
+    heartPositions[i3 + 2] =
+        z;
+
+
+    heartOriginal.push({
+        x,
+        y,
+        z
     });
 }
+
 
 const heartGeometry =
     new THREE.BufferGeometry();
@@ -462,27 +653,35 @@ heartGeometry.setAttribute(
     )
 );
 
+
 const heartMaterial =
     new THREE.PointsMaterial({
 
-        map: particleTexture,
+        map:
+            particleTexture,
 
-        color: 0xff245d,
+        color:
+            0xff315f,
 
-        size: 0.105,
+        size:
+            0.125,
 
-        transparent: true,
+        transparent:
+            true,
 
-        opacity: 0.9,
+        opacity:
+            0.92,
 
-        depthWrite: false,
+        depthWrite:
+            false,
 
         blending:
             THREE.AdditiveBlending,
 
-        sizeAttenuation: true
-
+        sizeAttenuation:
+            true
     });
+
 
 const heart =
     new THREE.Points(
@@ -490,34 +689,44 @@ const heart =
         heartMaterial
     );
 
-heartGroup.add(heart);
+heartGroup.add(
+    heart
+);
 
-heartGroup.position.y = 0.5;
+
+heartGroup.position.y =
+    2;
 
 
-/* =========================================================
-   ВНЕШНЕЕ СВЕЧЕНИЕ СЕРДЦА
-========================================================= */
+/* =====================================================
+   HEART GLOW
+===================================================== */
 
 const heartGlowMaterial =
     new THREE.PointsMaterial({
 
-        map: particleTexture,
+        map:
+            particleTexture,
 
-        color: 0xff174f,
+        color:
+            0xff174f,
 
-        size: 0.32,
+        size:
+            0.42,
 
-        transparent: true,
+        transparent:
+            true,
 
-        opacity: 0.13,
+        opacity:
+            0.13,
 
-        depthWrite: false,
+        depthWrite:
+            false,
 
         blending:
             THREE.AdditiveBlending
-
     });
+
 
 const heartGlow =
     new THREE.Points(
@@ -525,193 +734,533 @@ const heartGlow =
         heartGlowMaterial
     );
 
-heartGroup.add(heartGlow);
+heartGroup.add(
+    heartGlow
+);
 
 
-/* =========================================================
-   СПИРАЛЬ ЧАСТИЦ
-========================================================= */
+/* =====================================================
+   БЕЛЫЕ ЧАСТИЦЫ ВОКРУГ СЕРДЦА
+===================================================== */
 
-const spiralCount = 8500;
+const whiteCount =
+    9000;
 
-const spiralPositions =
+const whitePositions =
     new Float32Array(
-        spiralCount * 3
+        whiteCount * 3
     );
 
-const spiralData = [];
+const whiteData =
+    [];
 
-for (let i = 0; i < spiralCount; i++) {
 
-    const i3 = i * 3;
+for (
+    let i = 0;
+    i < whiteCount;
+    i++
+) {
 
-    const p =
-        i / spiralCount;
+    const i3 =
+        i * 3;
 
-    const y =
-        -13 +
-        p * 14;
+
+    const side =
+        Math.random() < 0.5
+        ? -1
+        : 1;
+
+
+    /*
+       Широкие потоки
+       слева и справа.
+    */
 
     const angle =
-        p * Math.PI * 18 +
-        Math.random() * 0.7;
+        Math.random() *
+        Math.PI;
+
 
     const radius =
-        4.5 -
-        p * 2.5 +
-        Math.random() * 1.3;
+        5 +
+        Math.random() *
+        6;
 
-    spiralPositions[i3] =
-        Math.cos(angle) *
-        radius;
 
-    spiralPositions[i3 + 1] =
+    const x =
+        side *
+        (
+            5 +
+            Math.cos(angle) *
+            radius
+        );
+
+
+    const y =
+        0.5 +
+        Math.sin(angle) *
+        4.5;
+
+
+    const z =
+        (
+            Math.random() -
+            0.5
+        ) *
+        7;
+
+
+    whitePositions[i3] =
+        x;
+
+    whitePositions[i3 + 1] =
         y;
 
-    spiralPositions[i3 + 2] =
-        Math.sin(angle) *
-        radius;
+    whitePositions[i3 + 2] =
+        z;
 
-    spiralData.push({
-        angle,
-        radius,
-        y,
+
+    whiteData.push({
+        angle:
+            angle,
+
+        radius:
+            radius,
+
+        side:
+            side,
+
         speed:
-            0.004 +
-            Math.random() * 0.008
+            0.001 +
+            Math.random() *
+            0.004
     });
 }
 
-const spiralGeometry =
+
+const whiteGeometry =
     new THREE.BufferGeometry();
 
-spiralGeometry.setAttribute(
+whiteGeometry.setAttribute(
     "position",
     new THREE.BufferAttribute(
-        spiralPositions,
+        whitePositions,
         3
     )
 );
 
-const spiralMaterial =
+
+const whiteMaterial =
     new THREE.PointsMaterial({
 
-        map: particleTexture,
+        map:
+            particleTexture,
 
-        color: 0xff315f,
+        color:
+            0xffffff,
 
-        size: 0.075,
+        size:
+            0.095,
 
-        transparent: true,
+        transparent:
+            true,
 
-        opacity: 0.65,
+        opacity:
+            0.82,
 
-        depthWrite: false,
+        depthWrite:
+            false,
+
+        blending:
+            THREE.AdditiveBlending,
+
+        sizeAttenuation:
+            true
+    });
+
+
+const whiteParticles =
+    new THREE.Points(
+        whiteGeometry,
+        whiteMaterial
+    );
+
+scene.add(
+    whiteParticles
+);
+
+
+/* =====================================================
+   БЕЛЫЕ ПОТОКИ СНИЗУ
+===================================================== */
+
+const lowerCount =
+    7500;
+
+const lowerPositions =
+    new Float32Array(
+        lowerCount * 3
+    );
+
+const lowerData =
+    [];
+
+
+for (
+    let i = 0;
+    i < lowerCount;
+    i++
+) {
+
+    const i3 =
+        i * 3;
+
+
+    const p =
+        Math.random();
+
+
+    /*
+       Поток начинается
+       под сердцем.
+    */
+
+    const y =
+        -4.5 -
+        p * 8;
+
+
+    /*
+       Чем ниже,
+       тем шире поток.
+    */
+
+    const spread =
+        1.5 +
+        p * 9;
+
+
+    const x =
+        (
+            Math.random() -
+            0.5
+        ) *
+        spread;
+
+
+    /*
+       Глубина.
+    */
+
+    const z =
+        (
+            Math.random() -
+            0.5
+        ) *
+        (
+            1.5 +
+            p * 5
+        );
+
+
+    lowerPositions[i3] =
+        x;
+
+    lowerPositions[i3 + 1] =
+        y;
+
+    lowerPositions[i3 + 2] =
+        z;
+
+
+    lowerData.push({
+        p:
+            p,
+
+        phase:
+            Math.random() *
+            Math.PI *
+            2,
+
+        speed:
+            0.003 +
+            Math.random() *
+            0.008
+    });
+}
+
+
+const lowerGeometry =
+    new THREE.BufferGeometry();
+
+lowerGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(
+        lowerPositions,
+        3
+    )
+);
+
+
+const lowerMaterial =
+    new THREE.PointsMaterial({
+
+        map:
+            particleTexture,
+
+        color:
+            0xffdce6,
+
+        size:
+            0.09,
+
+        transparent:
+            true,
+
+        opacity:
+            0.62,
+
+        depthWrite:
+            false,
 
         blending:
             THREE.AdditiveBlending
-
     });
 
-const spiral =
+
+const lowerParticles =
     new THREE.Points(
-        spiralGeometry,
-        spiralMaterial
+        lowerGeometry,
+        lowerMaterial
     );
 
-scene.add(spiral);
+scene.add(
+    lowerParticles
+);
 
 
-/* =========================================================
-   ПОЛУМЕСЯЦ 🌜
-========================================================= */
+/* =====================================================
+   ОТРАЖЕНИЕ ПОД СЕРДЦЕМ
+===================================================== */
+
+const reflectionCount =
+    4500;
+
+const reflectionPositions =
+    new Float32Array(
+        reflectionCount * 3
+    );
+
+
+for (
+    let i = 0;
+    i < reflectionCount;
+    i++
+) {
+
+    const i3 =
+        i * 3;
+
+
+    const p =
+        Math.random();
+
+
+    const x =
+        (
+            Math.random() -
+            0.5
+        ) *
+        (
+            5 +
+            p * 16
+        );
+
+
+    const y =
+        -7.2 -
+        p * 4;
+
+
+    const z =
+        (
+            Math.random() -
+            0.5
+        ) *
+        3;
+
+
+    reflectionPositions[i3] =
+        x;
+
+    reflectionPositions[i3 + 1] =
+        y;
+
+    reflectionPositions[i3 + 2] =
+        z;
+}
+
+
+const reflectionGeometry =
+    new THREE.BufferGeometry();
+
+reflectionGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(
+        reflectionPositions,
+        3
+    )
+);
+
+
+const reflectionMaterial =
+    new THREE.PointsMaterial({
+
+        map:
+            particleTexture,
+
+        color:
+            0xff426e,
+
+        size:
+            0.065,
+
+        transparent:
+            true,
+
+        opacity:
+            0.22,
+
+        depthWrite:
+            false,
+
+        blending:
+            THREE.AdditiveBlending
+    });
+
+
+const reflection =
+    new THREE.Points(
+        reflectionGeometry,
+        reflectionMaterial
+    );
+
+scene.add(
+    reflection
+);
+
+
+/* =====================================================
+   🌙 ПОЛУМЕСЯЦ
+===================================================== */
 
 const moonGroup =
     new THREE.Group();
 
-scene.add(moonGroup);
+scene.add(
+    moonGroup
+);
 
 
-/*
-   Создаём настоящий particle crescent.
-
-   Большой круг + вырезанный внутренний круг.
-*/
-
-const moonCount = 6500;
+const moonCount =
+    7000;
 
 const moonPositions =
     new Float32Array(
         moonCount * 3
     );
 
-const moonBase = [];
+let moonIndex =
+    0;
 
-let moonCreated = 0;
 
-while (moonCreated < moonCount) {
+/*
+   Формируем именно серп,
+   а не полный круг.
+*/
+
+while (
+    moonIndex <
+    moonCount
+) {
 
     const x =
-        (Math.random() - 0.5) * 7;
+        (
+            Math.random() -
+            0.5
+        ) *
+        7.5;
+
 
     const y =
-        (Math.random() - 0.5) * 7;
+        (
+            Math.random() -
+            0.5
+        ) *
+        7.5;
+
 
     const outer =
         x * x +
         y * y;
 
-    /*
-       Внешний круг.
-    */
 
-    if (outer > 12) {
+    if (
+        outer >
+        14
+    ) {
         continue;
     }
 
+
     /*
-       Внутренний вырез.
-       Смещён вправо.
+       Вырез справа.
     */
 
     const cutX =
-        x - 1.75;
+        x -
+        2.1;
+
 
     const cutY =
-        y + 0.15;
+        y;
+
 
     const inner =
         cutX * cutX +
         cutY * cutY;
 
-    if (inner < 8.2) {
+
+    if (
+        inner <
+        8.5
+    ) {
         continue;
     }
 
-    const z =
-        (Math.random() - 0.5) *
-        1.4;
 
-    const index =
-        moonCreated * 3;
+    const i3 =
+        moonIndex *
+        3;
 
-    moonPositions[index] =
+
+    moonPositions[i3] =
         x;
 
-    moonPositions[index + 1] =
+    moonPositions[i3 + 1] =
         y;
 
-    moonPositions[index + 2] =
-        z;
+    moonPositions[i3 + 2] =
+        (
+            Math.random() -
+            0.5
+        ) *
+        1.5;
 
-    moonBase.push({
-        x,
-        y,
-        z
-    });
 
-    moonCreated++;
+    moonIndex++;
 }
+
 
 const moonGeometry =
     new THREE.BufferGeometry();
@@ -724,25 +1273,32 @@ moonGeometry.setAttribute(
     )
 );
 
+
 const moonMaterial =
     new THREE.PointsMaterial({
 
-        map: particleTexture,
+        map:
+            particleTexture,
 
-        color: 0xff6b91,
+        color:
+            0xfff4c7,
 
-        size: 0.095,
+        size:
+            0.115,
 
-        transparent: true,
+        transparent:
+            true,
 
-        opacity: 0.85,
+        opacity:
+            0.94,
 
-        depthWrite: false,
+        depthWrite:
+            false,
 
         blending:
             THREE.AdditiveBlending
-
     });
+
 
 const moon =
     new THREE.Points(
@@ -750,111 +1306,181 @@ const moon =
         moonMaterial
     );
 
-moonGroup.add(moon);
+moonGroup.add(
+    moon
+);
 
 
-/* =========================================================
-   ОРБИТА ЛУНЫ
-========================================================= */
+/*
+   Дальняя орбита.
+*/
 
-let moonAngle = 0;
+let moonAngle =
+    0;
 
-const moonOrbitRadius = 15;
+const moonOrbitX =
+    17;
+
+const moonOrbitZ =
+    13;
+
 
 function updateMoon() {
 
-    moonAngle += 0.0017;
+    moonAngle +=
+        0.0015;
+
 
     moonGroup.position.x =
-        Math.cos(moonAngle) *
-        moonOrbitRadius;
+        Math.cos(
+            moonAngle
+        ) *
+        moonOrbitX;
+
 
     moonGroup.position.z =
-        Math.sin(moonAngle) *
-        moonOrbitRadius;
+        Math.sin(
+            moonAngle
+        ) *
+        moonOrbitZ;
+
 
     moonGroup.position.y =
-        3 +
+        5 +
         Math.sin(
-            moonAngle * 2
-        ) * 3;
+            moonAngle *
+            2
+        ) *
+        3;
 
-    moon.rotation.z += 0.002;
 
-    moon.rotation.y += 0.003;
+    moon.rotation.y +=
+        0.002;
 
+    moon.rotation.z +=
+        0.001;
 }
 
 
-/* =========================================================
-   МАСКА 🎭
-========================================================= */
+/* =====================================================
+   🎭 МАСКА ОНИ
+===================================================== */
 
 const maskGroup =
     new THREE.Group();
 
-scene.add(maskGroup);
+scene.add(
+    maskGroup
+);
+
 
 maskGroup.position.set(
-    -11,
-    -2,
+    -12,
+    -1,
     2
 );
 
-const maskCount = 5000;
+
+const maskCount =
+    8500;
 
 const maskPositions =
     new Float32Array(
         maskCount * 3
     );
 
-const maskBase = [];
+const maskBase =
+    [];
 
-for (let i = 0; i < maskCount; i++) {
 
-    const i3 = i * 3;
+for (
+    let i = 0;
+    i < maskCount;
+    i++
+) {
 
-    const a =
+    const i3 =
+        i * 3;
+
+
+    const angle =
         Math.random() *
-        Math.PI * 2;
+        Math.PI *
+        2;
 
-    /*
-       Форма маски.
-    */
-
-    const rx =
-        3.1 +
-        Math.sin(a * 2) * 0.35;
-
-    const ry =
-        4.0;
 
     const radius =
         Math.sqrt(
             Math.random()
         );
 
-    const x =
-        Math.cos(a) *
-        rx *
-        radius;
-
-    const y =
-        Math.sin(a) *
-        ry *
-        radius;
 
     /*
-       слегка выпуклая поверхность
+       Большое лицо Они.
     */
 
-    const z =
-        1.1 *
-        Math.cos(
-            Math.PI *
-            radius /
-            2
+    let x =
+        Math.cos(angle) *
+        4.3 *
+        radius;
+
+
+    let y =
+        Math.sin(angle) *
+        5.1 *
+        radius;
+
+
+    /*
+       Нижняя часть
+       немного уже.
+    */
+
+    if (
+        y < 0
+    ) {
+
+        x *=
+            0.88;
+    }
+
+
+    /*
+       Выпуклость.
+    */
+
+    const normalized =
+        (
+            x * x
+        ) /
+        (
+            4.3 *
+            4.3
+        )
+        +
+        (
+            y * y
+        ) /
+        (
+            5.1 *
+            5.1
         );
+
+
+    const depth =
+        Math.sqrt(
+            Math.max(
+                0,
+                1 -
+                normalized
+            )
+        );
+
+
+    const z =
+        depth *
+        2.0;
+
 
     maskPositions[i3] =
         x;
@@ -865,12 +1491,14 @@ for (let i = 0; i < maskCount; i++) {
     maskPositions[i3 + 2] =
         z;
 
+
     maskBase.push({
         x,
         y,
         z
     });
 }
+
 
 const maskGeometry =
     new THREE.BufferGeometry();
@@ -883,25 +1511,32 @@ maskGeometry.setAttribute(
     )
 );
 
+
 const maskMaterial =
     new THREE.PointsMaterial({
 
-        map: particleTexture,
+        map:
+            particleTexture,
 
-        color: 0xb42c5c,
+        color:
+            0xb72d5b,
 
-        size: 0.085,
+        size:
+            0.095,
 
-        transparent: true,
+        transparent:
+            true,
 
-        opacity: 0.72,
+        opacity:
+            0.78,
 
-        depthWrite: false,
+        depthWrite:
+            false,
 
         blending:
             THREE.AdditiveBlending
-
     });
+
 
 const mask =
     new THREE.Points(
@@ -909,125 +1544,306 @@ const mask =
         maskMaterial
     );
 
-maskGroup.add(mask);
-
-
-/* =========================================================
-   ГЛАЗА МАСКИ
-========================================================= */
-
-const eyeCount = 900;
-
-const eyePositions =
-    new Float32Array(
-        eyeCount * 3
-    );
-
-for (let i = 0; i < eyeCount; i++) {
-
-    const i3 = i * 3;
-
-    const side =
-        i < eyeCount / 2
-        ? -1
-        : 1;
-
-    const local =
-        i % (eyeCount / 2);
-
-    const t =
-        local /
-        (eyeCount / 2);
-
-    const angle =
-        Math.random() *
-        Math.PI * 2;
-
-    const radius =
-        Math.sqrt(
-            Math.random()
-        );
-
-    eyePositions[i3] =
-        side *
-        (0.95 +
-        Math.cos(angle) *
-        0.35 *
-        radius);
-
-    eyePositions[i3 + 1] =
-        0.7 +
-        Math.sin(angle) *
-        0.25 *
-        radius;
-
-    eyePositions[i3 + 2] =
-        1.3;
-}
-
-const eyeGeometry =
-    new THREE.BufferGeometry();
-
-eyeGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(
-        eyePositions,
-        3
-    )
+maskGroup.add(
+    mask
 );
 
-const eyeMaterial =
-    new THREE.PointsMaterial({
 
-        map: particleTexture,
+/* =====================================================
+   РОГА
+===================================================== */
 
-        color: 0xff426e,
+function createHorn(
+    side
+) {
 
-        size: 0.11,
+    const count =
+        2200;
 
-        transparent: true,
+    const positions =
+        new Float32Array(
+            count * 3
+        );
 
-        opacity: 0.95,
 
-        depthWrite: false,
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
 
-        blending:
-            THREE.AdditiveBlending
+        const i3 =
+            i * 3;
 
-    });
 
-const maskEyes =
-    new THREE.Points(
-        eyeGeometry,
-        eyeMaterial
+        const p =
+            Math.random();
+
+
+        /*
+           Рога вверх.
+        */
+
+        const y =
+            3.2 +
+            p * 5.5;
+
+
+        const curve =
+            Math.sin(
+                p *
+                Math.PI
+            ) *
+            1.1;
+
+
+        const x =
+            side *
+            (
+                2.2 +
+                p *
+                2.0 +
+                curve
+            );
+
+
+        positions[i3] =
+            x +
+            (
+                Math.random() -
+                0.5
+            ) *
+            0.55;
+
+
+        positions[i3 + 1] =
+            y +
+            (
+                Math.random() -
+                0.5
+            ) *
+            0.55;
+
+
+        positions[i3 + 2] =
+            1.2 +
+            Math.random() *
+            1.0;
+    }
+
+
+    const geometry =
+        new THREE.BufferGeometry();
+
+    geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(
+            positions,
+            3
+        )
     );
 
-maskGroup.add(maskEyes);
+
+    const material =
+        new THREE.PointsMaterial({
+
+            map:
+                particleTexture,
+
+            color:
+                0x8f173d,
+
+            size:
+                0.105,
+
+            transparent:
+                true,
+
+            opacity:
+                0.9,
+
+            depthWrite:
+                false,
+
+            blending:
+                THREE.AdditiveBlending
+        });
 
 
-/* =========================================================
-   ЧАСТИЦЫ ТЕКСТА
-========================================================= */
+    return new THREE.Points(
+        geometry,
+        material
+    );
+}
 
-let textParticles = null;
 
-let textVisible = false;
+const leftHorn =
+    createHorn(-1);
 
-let textProgress = 0;
+const rightHorn =
+    createHorn(1);
+
+maskGroup.add(
+    leftHorn
+);
+
+maskGroup.add(
+    rightHorn
+);
+
+
+/* =====================================================
+   ГЛАЗА
+===================================================== */
+
+function createEye(
+    side
+) {
+
+    const count =
+        700;
+
+    const positions =
+        new Float32Array(
+            count * 3
+        );
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const i3 =
+            i * 3;
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const radius =
+            Math.sqrt(
+                Math.random()
+            );
+
+
+        positions[i3] =
+            side *
+            (
+                1.15 +
+                Math.cos(angle) *
+                0.48 *
+                radius
+            );
+
+
+        positions[i3 + 1] =
+            0.8 +
+            Math.sin(angle) *
+            0.25 *
+            radius;
+
+
+        positions[i3 + 2] =
+            1.8;
+    }
+
+
+    const geometry =
+        new THREE.BufferGeometry();
+
+    geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(
+            positions,
+            3
+        )
+    );
+
+
+    const material =
+        new THREE.PointsMaterial({
+
+            map:
+                particleTexture,
+
+            color:
+                0xff6b91,
+
+            size:
+                0.12,
+
+            transparent:
+                true,
+
+            opacity:
+                0.95,
+
+            depthWrite:
+                false,
+
+            blending:
+                THREE.AdditiveBlending
+        });
+
+
+    return new THREE.Points(
+        geometry,
+        material
+    );
+}
+
+
+const leftEye =
+    createEye(-1);
+
+const rightEye =
+    createEye(1);
+
+maskGroup.add(
+    leftEye
+);
+
+maskGroup.add(
+    rightEye
+);
+
+
+/* =====================================================
+   TEXT PARTICLES
+===================================================== */
+
+let textParticles =
+    null;
+
+let textTarget =
+    [];
+
+let textProgress =
+    0;
+
+let textActive =
+    false;
 
 
 /*
-   Создание текста через Canvas.
+   Canvas используется только
+   как карта расположения букв.
 
-   Сам Canvas здесь только используется как
-   математическая карта букв.
-
-   На экране отображаются исключительно частицы.
+   На экране остаются только частицы.
 */
 
-function createTextParticles(text) {
+function createParticleText(
+    text
+) {
 
-    if (textParticles) {
+    if (
+        textParticles
+    ) {
 
         scene.remove(
             textParticles
@@ -1036,101 +1852,136 @@ function createTextParticles(text) {
         textParticles.geometry.dispose();
 
         textParticles.material.dispose();
-
     }
 
-    const canvas =
-        document.createElement("canvas");
 
-    canvas.width = 1000;
-    canvas.height = 250;
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+    canvas.width =
+        1200;
+
+    canvas.height =
+        300;
+
 
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext(
+            "2d"
+        );
+
 
     ctx.clearRect(
         0,
         0,
-        canvas.width,
-        canvas.height
+        1200,
+        300
     );
 
-    ctx.fillStyle = "white";
+
+    ctx.fillStyle =
+        "#ffffff";
+
 
     ctx.font =
         "bold 82px Georgia";
 
-    ctx.textAlign = "center";
 
-    ctx.textBaseline = "middle";
+    ctx.textAlign =
+        "center";
+
+
+    ctx.textBaseline =
+        "middle";
+
 
     ctx.fillText(
         text,
-        canvas.width / 2,
-        canvas.height / 2
+        600,
+        150
     );
+
 
     const image =
         ctx.getImageData(
             0,
             0,
-            canvas.width,
-            canvas.height
+            1200,
+            300
         );
 
-    const points = [];
 
-    const step = 5;
+    const points =
+        [];
+
+
+    const step =
+        5;
+
 
     for (
         let y = 0;
-        y < canvas.height;
+        y < 300;
         y += step
     ) {
 
         for (
             let x = 0;
-            x < canvas.width;
+            x < 1200;
             x += step
         ) {
 
             const alpha =
                 image.data[
-                    (y *
-                    canvas.width +
-                    x) *
+                    (
+                        y *
+                        1200 +
+                        x
+                    ) *
                     4 +
                     3
                 ];
 
-            if (alpha > 100) {
+
+            if (
+                alpha > 100
+            ) {
 
                 points.push({
 
                     x:
-                        (x -
-                        canvas.width / 2)
-                        * 0.022,
+                        (
+                            x -
+                            600
+                        ) *
+                        0.024,
 
                     y:
-                        -(y -
-                        canvas.height / 2)
-                        * 0.022,
+                        -(
+                            y -
+                            150
+                        ) *
+                        0.024,
 
                     z:
-                        (Math.random() - 0.5)
-                        * 0.35
-
+                        (
+                            Math.random() -
+                            0.5
+                        ) *
+                        0.6
                 });
-
             }
         }
     }
+
 
     const positions =
         new Float32Array(
             points.length * 3
         );
+
 
     for (
         let i = 0;
@@ -1148,6 +1999,7 @@ function createTextParticles(text) {
             points[i].z;
     }
 
+
     const geometry =
         new THREE.BufferGeometry();
 
@@ -1159,25 +2011,32 @@ function createTextParticles(text) {
         )
     );
 
+
     const material =
         new THREE.PointsMaterial({
 
-            map: particleTexture,
+            map:
+                particleTexture,
 
-            color: 0xff4d76,
+            color:
+                0xffc2d0,
 
-            size: 0.11,
+            size:
+                0.12,
 
-            transparent: true,
+            transparent:
+                true,
 
-            opacity: 0,
+            opacity:
+                0,
 
-            depthWrite: false,
+            depthWrite:
+                false,
 
             blending:
                 THREE.AdditiveBlending
-
         });
+
 
     textParticles =
         new THREE.Points(
@@ -1185,48 +2044,64 @@ function createTextParticles(text) {
             material
         );
 
+
     textParticles.position.set(
         0,
-        -7,
-        3
+        -6,
+        4
     );
+
 
     scene.add(
         textParticles
     );
 
-    textVisible = true;
-    textProgress = 0;
+
+    textProgress =
+        0;
+
+    textActive =
+        true;
 }
 
 
-/* =========================================================
-   МАСКА → ТЕКСТ
-========================================================= */
+/* =====================================================
+   МАСКА РАССЫПАЕТСЯ
+===================================================== */
 
-let maskExploding = false;
+let maskExploding =
+    false;
 
-let maskExplosionProgress = 0;
+let maskExplosion =
+    0;
+
 
 function explodeMask() {
 
-    if (maskExploding) {
+    if (
+        maskExploding
+    ) {
         return;
     }
 
-    maskExploding = true;
 
-    maskExplosionProgress = 0;
+    maskExploding =
+        true;
 
-    createTextParticles(
+
+    maskExplosion =
+        0;
+
+
+    createParticleText(
         "Узнай меня глубже"
     );
 }
 
 
-/* =========================================================
-   КЛИК ПО МАСКЕ
-========================================================= */
+/* =====================================================
+   CLICK
+===================================================== */
 
 const raycaster =
     new THREE.Raycaster();
@@ -1237,150 +2112,201 @@ const mouse =
         999
     );
 
+
 window.addEventListener(
     "pointermove",
     event => {
 
         mouse.x =
-            (event.clientX /
-            window.innerWidth) *
-            2 - 1;
+            (
+                event.clientX /
+                window.innerWidth
+            ) *
+            2 -
+            1;
+
 
         mouse.y =
-            -(event.clientY /
-            window.innerHeight) *
-            2 + 1;
-
+            -(
+                event.clientY /
+                window.innerHeight
+            ) *
+            2 +
+            1;
     }
 );
 
+
 window.addEventListener(
     "click",
-    event => {
+    () => {
 
-        if (!entered) {
+        if (
+            !entered
+        ) {
             return;
         }
+
 
         raycaster.setFromCamera(
             mouse,
             camera
         );
 
-        const objects =
+
+        const hits =
             raycaster.intersectObjects(
-                [mask, maskEyes],
+                [
+                    mask,
+                    leftHorn,
+                    rightHorn,
+                    leftEye,
+                    rightEye
+                ],
                 true
             );
 
-        if (objects.length > 0) {
+
+        if (
+            hits.length > 0
+        ) {
 
             explodeMask();
-
         }
     }
 );
 
 
-/* =========================================================
+/* =====================================================
    ВХОД
-========================================================= */
+===================================================== */
 
-let entered = false;
+let entered =
+    false;
 
-const enterButton =
-    document.getElementById(
-        "enterButton"
-    );
 
 const intro =
     document.getElementById(
         "intro"
     );
 
+
+const enterButton =
+    document.getElementById(
+        "enterButton"
+    );
+
+
 const hint =
     document.getElementById(
         "hint"
     );
+
 
 const maskHint =
     document.getElementById(
         "maskHint"
     );
 
+
 enterButton.addEventListener(
     "click",
     () => {
 
-        entered = true;
+        entered =
+            true;
+
 
         intro.classList.add(
             "hidden"
         );
 
-        setTimeout(() => {
 
-            hint.classList.add(
-                "show"
-            );
+        setTimeout(
+            () => {
 
-            maskHint.classList.add(
-                "show"
-            );
+                hint.classList.add(
+                    "show"
+                );
 
-        }, 1800);
+                maskHint.classList.add(
+                    "show"
+                );
 
+            },
+            1800
+        );
     }
 );
 
 
-/* =========================================================
-   КАМЕРА
-========================================================= */
+/* =====================================================
+   CAMERA
+===================================================== */
 
-let mouseX = 0;
-let mouseY = 0;
+let mouseX =
+    0;
+
+let mouseY =
+    0;
+
 
 window.addEventListener(
     "pointermove",
     event => {
 
         mouseX =
-            (event.clientX /
+            event.clientX /
             window.innerWidth -
-            0.5);
+            0.5;
+
 
         mouseY =
-            (event.clientY /
+            event.clientY /
             window.innerHeight -
-            0.5);
-
+            0.5;
     }
 );
 
 
-/* =========================================================
-   HEARTBEAT
-========================================================= */
+/* =====================================================
+   HEART ANIMATION
+===================================================== */
 
-let time = 0;
+let elapsed =
+    0;
+
 
 function updateHeart() {
 
-    time += 0.016;
+    elapsed +=
+        0.016;
+
+
+    /*
+       Сердцебиение.
+    */
 
     const beat =
         1 +
-        Math.sin(time * 2.4) *
+        Math.sin(
+            elapsed *
+            2.4
+        ) *
         0.018 +
-        Math.sin(time * 4.8) *
+        Math.sin(
+            elapsed *
+            4.8
+        ) *
         0.007;
+
 
     heartGroup.scale.set(
         beat,
         beat,
         beat
     );
+
 
     /*
        Медленное вращение.
@@ -1389,92 +2315,236 @@ function updateHeart() {
     heartGroup.rotation.y +=
         0.0028;
 
-    heartGroup.rotation.x =
-        Math.sin(time * 0.25)
-        * 0.035;
 
-    heartGlow.rotation.copy(
-        heart.rotation
-    );
+    heartGroup.rotation.x =
+        Math.sin(
+            elapsed *
+            0.25
+        ) *
+        0.035;
 }
 
 
-/* =========================================================
-   ОБНОВЛЕНИЕ СПИРАЛИ
-========================================================= */
+/* =====================================================
+   БЕЛЫЕ ЧАСТИЦЫ
+===================================================== */
 
-function updateSpiral() {
+function updateWhiteParticles() {
 
     const positions =
-        spiralGeometry.attributes
-        .position.array;
+        whiteGeometry
+            .attributes
+            .position
+            .array;
+
 
     for (
         let i = 0;
-        i < spiralCount;
+        i < whiteCount;
         i++
     ) {
 
         const i3 =
             i * 3;
 
+
         const data =
-            spiralData[i];
+            whiteData[i];
+
 
         data.angle +=
             data.speed;
 
-        const radius =
-            data.radius;
+
+        /*
+           Волнообразное движение.
+        */
+
+        const wave =
+            Math.sin(
+                elapsed *
+                0.8 +
+                data.angle *
+                2
+            ) *
+            0.5;
+
 
         positions[i3] =
-            Math.cos(
-                data.angle
-            ) *
-            radius;
+            data.side *
+            (
+                5 +
+                Math.cos(
+                    data.angle
+                ) *
+                data.radius
+            );
 
-        positions[i3 + 2] =
+
+        positions[i3 + 1] =
+            0.5 +
             Math.sin(
                 data.angle
             ) *
-            radius;
+            4.5 +
+            wave;
 
+
+        positions[i3 + 2] =
+            Math.sin(
+                data.angle *
+                2
+            ) *
+            1.8;
     }
 
-    spiralGeometry.attributes
-        .position
-        .needsUpdate = true;
 
-    spiral.rotation.y +=
-        0.001;
+    whiteGeometry
+        .attributes
+        .position
+        .needsUpdate =
+        true;
 }
 
 
-/* =========================================================
-   МАСКА АНИМАЦИЯ
-========================================================= */
+/* =====================================================
+   НИЖНИЕ ПОТОКИ
+===================================================== */
+
+function updateLowerParticles() {
+
+    const positions =
+        lowerGeometry
+            .attributes
+            .position
+            .array;
+
+
+    for (
+        let i = 0;
+        i < lowerCount;
+        i++
+    ) {
+
+        const i3 =
+            i * 3;
+
+
+        const data =
+            lowerData[i];
+
+
+        data.phase +=
+            data.speed;
+
+
+        const wave =
+            Math.sin(
+                data.phase
+            );
+
+
+        const spread =
+            1.5 +
+            data.p *
+            9;
+
+
+        /*
+           Частицы колышутся
+           как ткань/поток.
+        */
+
+        positions[i3] +=
+            wave *
+            0.008;
+
+
+        positions[i3 + 2] =
+            Math.sin(
+                data.phase *
+                0.7
+            ) *
+            (
+                0.8 +
+                data.p *
+                3
+            );
+
+
+        /*
+           лёгкое движение вверх.
+        */
+
+        positions[i3 + 1] +=
+            0.002;
+
+
+        if (
+            positions[i3 + 1] >
+            -4
+        ) {
+
+            positions[i3 + 1] =
+                -12 -
+                Math.random() *
+                4;
+
+            positions[i3] =
+                (
+                    Math.random() -
+                    0.5
+                ) *
+                spread;
+        }
+    }
+
+
+    lowerGeometry
+        .attributes
+        .position
+        .needsUpdate =
+        true;
+}
+
+
+/* =====================================================
+   МАСКА
+===================================================== */
 
 function updateMask() {
 
-    if (!maskExploding) {
+    if (
+        !maskExploding
+    ) {
 
         maskGroup.rotation.y +=
             0.002;
 
+
         maskGroup.position.y =
-            -2 +
-            Math.sin(time * 0.7)
-            * 0.25;
+            -1 +
+            Math.sin(
+                elapsed *
+                0.6
+            ) *
+            0.25;
+
 
         return;
     }
 
-    maskExplosionProgress +=
+
+    maskExplosion +=
         0.018;
 
+
     const positions =
-        maskGeometry.attributes
-        .position.array;
+        maskGeometry
+            .attributes
+            .position
+            .array;
+
 
     for (
         let i = 0;
@@ -1485,89 +2555,146 @@ function updateMask() {
         const i3 =
             i * 3;
 
+
         const base =
             maskBase[i];
 
+
         const distance =
             1 +
-            maskExplosionProgress *
+            maskExplosion *
             7;
+
 
         positions[i3] =
             base.x *
             distance;
 
+
         positions[i3 + 1] =
             base.y *
             distance;
 
+
         positions[i3 + 2] =
             base.z *
             distance;
-
     }
 
-    maskGeometry.attributes
+
+    maskGeometry
+        .attributes
         .position
-        .needsUpdate = true;
+        .needsUpdate =
+        true;
+
 
     maskMaterial.opacity =
         Math.max(
             0,
-            0.72 -
-            maskExplosionProgress
+            0.78 -
+            maskExplosion
         );
 
-    maskEyes.visible =
-        maskExplosionProgress < 0.5;
 
-    if (textParticles) {
+    leftHorn.visible =
+        maskExplosion <
+        0.5;
+
+    rightHorn.visible =
+        maskExplosion <
+        0.5;
+
+    leftEye.visible =
+        maskExplosion <
+        0.5;
+
+    rightEye.visible =
+        maskExplosion <
+        0.5;
+
+
+    /*
+       Собираем текст.
+    */
+
+    if (
+        textParticles
+    ) {
 
         textProgress =
             Math.min(
                 1,
-                textProgress + 0.015
+                textProgress +
+                0.012
             );
+
 
         textParticles.material.opacity =
             textProgress;
 
+
         textParticles.scale.setScalar(
-            0.8 +
-            textProgress * 0.2
+            0.65 +
+            textProgress *
+            0.35
         );
 
+
+        /*
+           Лёгкое вращение
+           объёмного текста.
+        */
+
+        textParticles.rotation.y =
+            Math.sin(
+                elapsed *
+                0.35
+            ) *
+            0.04;
     }
 }
 
 
-/* =========================================================
-   ОБЩЕЕ ДВИЖЕНИЕ
-========================================================= */
+/* =====================================================
+   ОБЩИЙ МИР
+===================================================== */
 
 function updateWorld() {
 
-    stars.rotation.y +=
-        0.00025;
+    backgroundParticles.rotation.y +=
+        0.00022;
 
-    stars.rotation.x +=
-        0.00008;
+    backgroundParticles.rotation.x +=
+        0.00006;
+
+
+    reflection.rotation.y +=
+        0.0004;
+
 
     /*
-       Масштабное вращение мира.
+       Камера реагирует
+       на движение мыши.
     */
 
     camera.position.x +=
         (
-            mouseX * 2.5 -
+            mouseX *
+            3 -
             camera.position.x
-        ) * 0.015;
+        ) *
+        0.015;
+
 
     camera.position.y +=
         (
-            -mouseY * 1.8 -
+            -mouseY *
+            2 -
             camera.position.y
-        ) * 0.015;
+        ) *
+        0.015;
+
 
     camera.lookAt(
         0,
@@ -1577,9 +2704,9 @@ function updateWorld() {
 }
 
 
-/* =========================================================
+/* =====================================================
    RESIZE
-========================================================= */
+===================================================== */
 
 window.addEventListener(
     "resize",
@@ -1589,20 +2716,21 @@ window.addEventListener(
             window.innerWidth /
             window.innerHeight;
 
+
         camera.updateProjectionMatrix();
+
 
         renderer.setSize(
             window.innerWidth,
             window.innerHeight
         );
-
     }
 );
 
 
-/* =========================================================
-   ANIMATION LOOP
-========================================================= */
+/* =====================================================
+   LOOP
+===================================================== */
 
 function animate() {
 
@@ -1610,9 +2738,12 @@ function animate() {
         animate
     );
 
+
     updateHeart();
 
-    updateSpiral();
+    updateWhiteParticles();
+
+    updateLowerParticles();
 
     updateMoon();
 
@@ -1620,11 +2751,13 @@ function animate() {
 
     updateWorld();
 
+
     renderer.render(
         scene,
         camera
     );
 }
+
 
 animate();
 
